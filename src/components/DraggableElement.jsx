@@ -1,15 +1,15 @@
-// src/components/DraggableElement.js
 import React from 'react';
 import gripvertical from '../assets/gripvertical.png';
 
 const DraggableElement = ({ text }) => {
-  const handleDragStart = (event) => {
-    event.dataTransfer.setData('text/plain', JSON.stringify({type: 'blocks',data: text}));
+  const handleDragStart = (e) => {
+    e.dataTransfer.setData('text/plain', JSON.stringify({type: 'blocks',data: text}));
   };
 
   return (
     <div
-      className="w-60 px-3 py-4 flex gap-2.5 items-center rounded bg-white cursor-grab"
+    style={{ boxShadow: '0px 4px 24px 0px rgba(0, 0, 0, 0.7)'}}
+      className="w-60 px-3 py-4 flex gap-2.5 items-center border bg-white rounded cursor-grab"
       draggable
       onDragStart={handleDragStart}
     >

@@ -28,7 +28,12 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
     },[config])
 
     const handleSave = () => {
-        onSave({ ...configData, id: Date.now() + Math.random()*2 });
+
+        if('id' in configData) {
+            onSave({ ...configData});
+        } else {
+            onSave({ ...configData, id: Date.now() + Math.random()*2 });
+        }
         onClose();
     };
 
@@ -38,10 +43,10 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
                 setConfigData({...configData, text: event.target.value});
                 break;
             case 'elementX':
-                setConfigData({...configData, x: event.target.value});
+                setConfigData({...configData, x: event.target.value.replace(/\D/g, '')});
                 break;
             case 'elementY':
-                setConfigData({...configData, y: event.target.value});
+                setConfigData({...configData, y: event.target.value.replace(/\D/g, '')});
                 break;
             case 'elementFontSize':
                 setConfigData({...configData, fontSize: event.target.value.replace(/\D/g, '')});
@@ -56,7 +61,7 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
     }
 
     const handleClose = () => {
-        setConfigData({ x: 0, y: 0, text: '' })
+        setConfigData({ x: 0, y: 0, text: '',fontSize: 0, fontWeight: 0 })
         onClose();
     }
     if (!open) return null;
@@ -72,7 +77,7 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
                         <h2 className="font-semibold">
                             Edit {config ? `${config?.text}` : "Modal"}
                         </h2>
-                        <span className="opacity-50 font-normal" 
+                        <span className="opacity-50 font-normal cursor-pointer" 
                         onClick={handleClose}>
                             &times;
                         </span>
@@ -95,7 +100,7 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
                     <input
                         className="border-2 rounded-sm p-2 
                         border-[#D9D9D9] outline-none"
-                        type="text"
+                        type="number"
                         id="elementX"
                         value={configData?.x}
                         onChange={(e) => handleConfigData(e, "elementX")}
@@ -106,7 +111,7 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
                     <input
                         className="border-2 rounded-sm p-2 
                         border-[#D9D9D9] outline-none"
-                        type="text"
+                        type="number"
                         id="elementY"
                         value={configData?.y}
                         onChange={(e) => handleConfigData(e, "elementY")}
