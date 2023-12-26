@@ -6,7 +6,7 @@ const Sidebar = (elements) => {
 
   return (
     <div className="lg:px-6 flex flex-col justify-between 
-    lg:py-5 lg:w-80 w-40 p-3 bg-[#2D2D2D]">
+    lg:py-5 lg:w-80 w-40 p-3 bg-[#2D2D2D] z-50">
       <div className="flex flex-col gap-2.5">
         <p className="text-[#fff] mt-2 text-xl font-bold">BLOCKS</p>
         <DraggableElement text="Label" />

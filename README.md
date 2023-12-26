@@ -4,6 +4,8 @@
 
 This is a simple React-based powered by Vite, A Mini Page Builder app that allows users to drag and drop components onto a blank page, configure them, and visualize the result in real-time.
 
+Deployed Application: https://mini-page-builder-orcin.vercel.app/
+
 ## Table of Contents
 
 - [Mini Page Builder App](#mini-page-builder-app)
@@ -43,7 +45,7 @@ This is a simple React-based powered by Vite, A Mini Page Builder app that allow
 
 ### Usage
 This application has been created using Vite.
-To run the app locally, use the following command:
+1. To run the app locally, use the following command:
     ```bash
     npm run dev
 
