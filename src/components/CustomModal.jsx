@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDom from "react-dom";
+import { configFields } from "../helper";
 
 const OVERLAY_STYLES = {
     position: 'fixed',
@@ -60,8 +61,23 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
         }
     }
 
+    const renderConfigInputs = () => {
+        return configFields.map((field) => (
+            <div key={field.id} className="flex px-5 gap-1 flex-col">
+                <label htmlFor={field.id}>{field.label}</label>
+                <input
+                    className="border-2 rounded-sm p-2 border-[#D9D9D9] outline-none"
+                    type={field.type}
+                    id={field.id}
+                    value={configData[field.value]}
+                    onChange={(e) => handleConfigData(e, field.id)}
+                />
+            </div>
+        ));
+    };
+
     const handleClose = () => {
-        setConfigData({ x: 0, y: 0, text: '',fontSize: 0, fontWeight: 0 })
+        setConfigData({ x: 0, y: 0,type: '', text: '',fontSize: 0, fontWeight: 0 })
         onClose();
     }
     if (!open) return null;
@@ -84,61 +100,7 @@ const CustomModal = ({ config, open,onSave, onClose }) => {
                     </div>
                     <div className="w-full h-[2px] opacity-10 bg-black"/>
                 </div>
-                <div className="flex px-5 gap-1 flex-col">
-                    <label htmlFor="elementText">Text</label>
-                    <input
-                        className="border-2 rounded-sm p-2 
-                        border-[#D9D9D9] outline-none"
-                        type="text"
-                        id="elementText"
-                        value={configData?.text}
-                        onChange={(e) => handleConfigData(e, "elementText")}
-                    />
-                </div>
-                <div className="flex px-5 gap-1 flex-col">
-                    <label htmlFor="elementX">X</label>
-                    <input
-                        className="border-2 rounded-sm p-2 
-                        border-[#D9D9D9] outline-none"
-                        type="number"
-                        id="elementX"
-                        value={configData?.x}
-                        onChange={(e) => handleConfigData(e, "elementX")}
-                    />
-                </div>
-                <div className="flex px-5 gap-1 flex-col">
-                    <label htmlFor="elementY">Y</label>
-                    <input
-                        className="border-2 rounded-sm p-2 
-                        border-[#D9D9D9] outline-none"
-                        type="number"
-                        id="elementY"
-                        value={configData?.y}
-                        onChange={(e) => handleConfigData(e, "elementY")}
-                    />
-                </div>
-                <div className="flex px-5 gap-1 flex-col">
-                    <label htmlFor="elementFontSize">Font Size ( pixel )</label>
-                    <input
-                        className="border-2 rounded-sm p-2 
-                        border-[#D9D9D9] outline-none"
-                        type="number"
-                        id="elementFontSize"
-                        value={configData?.fontSize}
-                        onChange={(e) => handleConfigData(e, "elementFontSize")}
-                    />
-                </div>
-                <div className="flex px-5 gap-1 flex-col">
-                    <label htmlFor="elementFontWeight">Font Weight ( multiple of 100 )</label>
-                    <input
-                        className="border-2 rounded-sm p-2 
-                        border-[#D9D9D9] outline-none"
-                        type="number"
-                        id="elementFontWeight"
-                        value={configData?.fontWeight}
-                        onChange={(e) => handleConfigData(e, "elementFontWeight")}
-                    />
-                </div>
+                {renderConfigInputs()}
                 <div className="flex px-5 mb-5 justify-start">
                     <button 
                         className="bg-[#0044C1] text-white rounded-sm py-2 px-4"

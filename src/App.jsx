@@ -1,13 +1,14 @@
 // src/App.js
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import PageContainer from './components/PageContainer';
 
 function App() {
+  const [elements, setElements] = useState([]);
   return (
     <div className="w-full h-[100vh] flex justify-between">
-      <PageContainer />
-      <Sidebar />
+      <PageContainer elements={elements} setElements={setElements}/>
+      <Sidebar elements={elements} />
     </div>
   );
 }

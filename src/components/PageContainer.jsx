@@ -3,10 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import CustomModal from './CustomModal';
 import useClickOutside from '../hooks/useClickOutside';
 
-const PageContainer = () => {
+const PageContainer = ({ elements, setElements }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [config, setConfig] = useState({ x: 0, y: 0, text: '',fontSize: 0, fontWeight: 0 });
-    const [elements, setElements] = useState([]);
+    const [config, setConfig] = useState({ x: 0, y: 0, type: '',text: '',fontSize: 0, fontWeight: 0 });
     const [currentElement, setCurrentElement] = useState(null);
 
     const outsideRef = useRef();
@@ -25,9 +24,9 @@ const PageContainer = () => {
         const mouseX = event.clientX;
         const mouseY = event.clientY-30;
 
-        if(type === 'blocks') {
+        if(['Label','Input','Button'].includes(type)) {
             // Set the configuration and show the modal
-            setConfig({ x: mouseX, y: mouseY, text: data,fontSize: 0, fontWeight: 0 });
+            setConfig({ x: mouseX, y: mouseY,type: type, text: data,fontSize: 0, fontWeight: 0 });
             setIsModalOpen(true);
         } else {
             const updatedElements = [...elements];
@@ -101,7 +100,7 @@ const PageContainer = () => {
 
     const getElementByText = (element) => {
         let content;
-        switch(element.text) {
+        switch(element.type) {
             case 'Label':
                 content = <p
                 style={{ fontSize: element.fontSize || 20, fontWeight: element.fontWeight || 300 }}
